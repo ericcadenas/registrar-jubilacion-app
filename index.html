@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Jubilación</title>
+    <style>
+        body, form, input, select, button, textarea {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .spacer {
+            height: 75px;
+        }
+
+        h1 {
+            font-size: 1.2em;
+        }
+
+        form {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input, form select {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+
+        .pension-info {
+            font-size: 0.7em;
+            color: gray;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 8px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background-color: #6c757d;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        .search-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .search-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .search-form input {
+            width: 100%;
+            padding: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+
+        .search-form button {
+            width: 100%;
+            padding: 8px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .search-form button:hover {
+            background-color: #218838;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .results-table, .results-table th, .results-table td {
+            border: 1px solid #ccc;
+        }
+
+        .results-table th, .results-table td {
+            padding: 8px;
+            text-align: left;
+            font-size: 0.8em;
+        }
+
+        .results-table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spacer"></div>
+        <h1>Registrar Jubilación</h1>
+        <form id="retirement-form">
+            <label for="dniAfiliado">DNI del Afiliado:</label>
+            <input type="text" id="dniAfiliado" name="dniAfiliado" required>
+
+            <label for="apellidoAfiliado">Apellido del Afiliado:</label>
+            <input type="text" id="apellidoAfiliado" name="apellidoAfiliado" required>
+
+            <label for="nombreAfiliado">Nombre del Afiliado:</label>
+            <input type="text" id="nombreAfiliado" name="nombreAfiliado" required>
+
+            <label for="entidadFondoPensiones">Entidad Fondo de Pensiones:</label>
+            <select id="entidadFondoPensiones" name="entidadFondoPensiones" required>
+                <option value="Integra">Integra</option>
+                <option value="Habitat">Habitat</option>
+                <option value="Profuturo">Profuturo</option>
+                <option value="Prima">Prima</option>
+            </select>
+
+            <label for="montoJubilacion">Monto para Jubilacion:</label>
+            <input type="number" id="montoJubilacion" name="montoJubilacion" required>
+
+            <label for="modalidadPension">Modalidad de Pension:</label>
+            <select id="modalidadPension" name="modalidadPension" required>
+                <option value="Pension Fija">Pension Fija</option>
+                <option value="Monto Mensual">Monto Mensual</option>
+            </select>
+            <span id="pension-info" class="pension-info"></span>
+
+            <button type="submit">Guardar</button>
+        </form>
+
+        <a href="http://54.159.50.70:8084/" class="back-button">Regresar</a>
+
+        <form class="search-form" id="search-form">
+            <h2>Buscar Jubilaciones</h2>
+            <label for="searchDniAfiliado">DNI del Afiliado:</label>
+            <input type="text" id="searchDniAfiliado" name="searchDniAfiliado" required>
+
+            <button type="submit">Buscar</button>
+        </form>
+
+        <table class="results-table" id="results-table">
+            <thead>
+                <tr>
+                    <th>DNI del Afiliado</th>
+                    <th>Apellido del Afiliado</th>
+                    <th>Nombre del Afiliado</th>
+                    <th>Entidad Fondo de Pensiones</th>
+                    <th>Monto para Jubilacion</th>
+                    <th>Modalidad de Pension</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        /*global fetch*/
+        document.getElementById('modalidadPension').addEventListener('change', function() {
+            const selectedOption = this.value;
+            const pensionInfo = document.getElementById('pension-info');
+            if (selectedOption === 'Pension Fija') {
+                pensionInfo.textContent = 'Pagos fijos hasta fallecimiento del afiliado';
+            } else if (selectedOption === 'Monto Mensual') {
+                pensionInfo.textContent = 'Pagos mensuales hasta que se consuma el monto total de lo acumulado para su jubilacion';
+            } else {
+                pensionInfo.textContent = '';
+            }
+        });
+
+        document.getElementById('retirement-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const jsonData = {};
+
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+
+            const response = await fetch('/save-retirement', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Jubilación guardada con éxito');
+                form.reset();
+            } else {
+                alert(`Error al guardar la jubilación: ${result.message}`);
+            }
+        });
+
+        document.getElementById('search-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const dniAfiliado = document.getElementById('searchDniAfiliado').value;
+
+            const response = await fetch(`/search-retirement?dniAfiliado=${dniAfiliado}`);
+            const results = await response.json();
+            const resultsTableBody = document.getElementById('results-table').querySelector('tbody');
+
+            resultsTableBody.innerHTML = '';
+            results.forEach(result => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${result.dniAfiliado}</td>
+                    <td>${result.apellidoAfiliado}</td>
+                    <td>${result.nombreAfiliado}</td>
+                    <td>${result.entidadFondoPensiones}</td>
+                    <td>${result.montoJubilacion}</td>
+                    <td>${result.modalidadPension}</td>
+                `;
+                resultsTableBody.appendChild(row);
+            });
+        });
+    </script>
+</body>
+</html>
